@@ -31,6 +31,8 @@ This repository acts as a comprehensive lab portfolio showcasing real-world SOC 
 | 🛠️ **Setup Guide** | **Wazuh SOC Home Lab Architecture & Implementation** | SIEM Infra + Endpoints | VMware dual-homed networking, Wazuh Manager, Agent onboarding, Sysmon, troubleshooting | [Read Guide ➔](./SOC-Home-Lab-Setup-Guide/) |
 | 🔐 **Day 1** | **Authentication & Login Monitoring** | Ubuntu Server | PAM sessions, `unix_chkpasswd`, baseline authentication logins | [Read Module ➔](./Day%201%20Authentication%20and%20Login%20Monitoring/) |
 | 🚨 **Day 2** | **SSH Attack Detection & Unauthorized Access** | Ubuntu Server | `sshd` failures, successful SSH entry, source IP attribution, MITRE T1110.001 | [Read Module ➔](./Day%202%20SSH%20Attacks%20and%20Unauthorized%20Access%20Attempts/) |
+| ⚡ **Day 3** | **SSH Brute-Force Detection & Correlation** | Ubuntu Server | Hydra brute-force simulation, event correlation (`Rule 5763`), MITRE T1110.001 | [Read Module ➔](./Day%203%20Brute-Force%20Detection/) |
+| 🔍 **Day 4** | **Invalid / Non-Existent User Detection** | Ubuntu Server | Account enumeration detection, PAM failure correlation (`Rule 5710`), MITRE T1087.001 | [Read Module ➔](./Day%204%20Invalid%20%20Non-Existent%20User%20Detection/) |
 
 ---
 
