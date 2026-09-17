@@ -33,6 +33,7 @@ This repository acts as a comprehensive lab portfolio showcasing real-world SOC 
 | 🚨 **Day 2** | **SSH Attack Detection & Unauthorized Access** | Ubuntu Server | `sshd` failures, successful SSH entry, source IP attribution, MITRE T1110.001 | [Read Module ➔](./Day%202%20SSH%20Attacks%20and%20Unauthorized%20Access%20Attempts/) |
 | ⚡ **Day 3** | **SSH Brute-Force Detection & Correlation** | Ubuntu Server | Hydra brute-force simulation, event correlation (`Rule 5763`), MITRE T1110.001 | [Read Module ➔](./Day%203%20Brute-Force%20Detection/) |
 | 🔍 **Day 4** | **Invalid / Non-Existent User Detection** | Ubuntu Server | Account enumeration detection, PAM failure correlation (`Rule 5710`), MITRE T1087.001 | [Read Module ➔](./Day%204%20Invalid%20%20Non-Existent%20User%20Detection/) |
+| 🔐 **Day 5** | **Privilege Escalation Monitoring** | Ubuntu Server | Sudo activity detection, privileged command monitoring (`Rule 5402`), PAM session monitoring | [Read Module ➔](./Day%205%20Privilege%20Escalation%20Monitoring/) |
 
 ---
 
@@ -56,6 +57,38 @@ This repository acts as a comprehensive lab portfolio showcasing real-world SOC 
   * `Rule ID 5760` (Level 5) – `sshd` authentication failure ➔ **MITRE ATT&CK T1110.001 (Password Guessing)**
   * `Rule ID 5715` (Level 3) – `sshd` authentication success ➔ **MITRE ATT&CK T1078 (Valid Accounts)**
 * **Outcome:** Attributed attack origin to the external Kali client IP, extracted targeted user credentials (`ubuntu`), and formulated active response & hardening controls.
+### 🚨 Day 3: SSH Brute-Force Detection & Correlation
+
+* **Overview:** Simulate a controlled SSH brute-force attack using Hydra from Kali Linux against an Ubuntu Server and investigate the resulting authentication events in Wazuh.
+
+* **Key Detections & TTPs:**
+  * `Rule ID 5760` (Level 5) – `sshd` authentication failure ➔ **MITRE ATT&CK T1110.001 (Password Guessing)**
+  * `Rule ID 5763` (Level 10) – SSH brute-force detection ➔ **MITRE ATT&CK T1110.001 (Password Guessing)**
+  * `T1021.004` – **Remote Services: SSH**
+
+* **Outcome:** Correlated repeated SSH authentication failures into a high-severity brute-force alert, identified the attack source and targeted account, and documented SOC investigation and response procedures.
+
+### 🔍 Day 4: Invalid / Non-Existent User Detection
+
+* **Overview:** Simulate SSH authentication attempts using non-existent usernames and investigate account enumeration activity through Ubuntu authentication logs and Wazuh.
+
+* **Key Detections & TTPs:**
+  * `Rule ID 5710` (Level 5) – `sshd` attempt to log in using a non-existent user ➔ **MITRE ATT&CK T1087.001 (Account Discovery: Local Account)**
+  * `Rule ID 5503` (Level 5) – PAM user login failure
+  * `T1110.001` – **Brute Force: Password Guessing**
+
+* **Outcome:** Detected invalid username attempts, correlated SSH and PAM authentication events, and developed an investigation workflow for identifying possible username enumeration and reconnaissance activity.
+
+### 🔐 Day 5: Privilege Escalation Monitoring
+
+* **Overview:** Perform controlled `sudo` privilege activity on an Ubuntu Server and investigate how privileged command execution is recorded and detected using Wazuh.
+
+* **Key Detections & TTPs:**
+  * `Rule ID 5402` (Level 3) – Successful sudo to ROOT executed
+  * `Rule ID 5501` (Level 3) – PAM login session opened
+  * `Rule ID 5502` (Level 3) – PAM login session closed
+
+* **Outcome:** Monitored privileged command execution, correlated Linux authentication logs with Wazuh alerts, identified the source and target privilege context, and practiced SOC investigation of authorized versus potentially suspicious privileged activity.
 
 ---
 
