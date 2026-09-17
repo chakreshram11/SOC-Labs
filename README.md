@@ -34,7 +34,7 @@ This repository acts as a comprehensive lab portfolio showcasing real-world SOC 
 | ⚡ **Day 3** | **SSH Brute-Force Detection & Correlation** | Ubuntu Server | Hydra brute-force simulation, event correlation (`Rule 5763`), MITRE T1110.001 | [Read Module ➔](./Day%203%20Brute-Force%20Detection/) |
 | 🔍 **Day 4** | **Invalid / Non-Existent User Detection** | Ubuntu Server | Account enumeration detection, PAM failure correlation (`Rule 5710`), MITRE T1087.001 | [Read Module ➔](./Day%204%20Invalid%20%20Non-Existent%20User%20Detection/) |
 | 🔐 **Day 5** | **Privilege Escalation Monitoring** | Ubuntu Server | Sudo activity detection, privileged command monitoring (`Rule 5402`), PAM session monitoring | [Read Module ➔](./Day%205%20Privilege%20Escalation%20Monitoring/) |
-| 👤 **Day 6** | **User Account Creation & Deletion Monitoring** | Ubuntu Server | User/group creation and deletion detection, Wazuh Rules `5901`, `5902`, `5903`, PAM password monitoring | [Read Module ➔](./Day%206%20User%20Account%20Creation%20and%20Deletion%20Monitoring/) |
+| 👤 **Day 6** | **User Account Creation & Deletion Monitoring** | Ubuntu Server | User/group creation and deletion detection, Wazuh Rules `5901`, `5902`, `5903`, PAM password monitoring | [Read Module ➔](./Day%206%20User%20Account%20Creation%20and%20Deletion/) |
 
 ---
 
