@@ -34,6 +34,7 @@ This repository acts as a comprehensive lab portfolio showcasing real-world SOC 
 | ⚡ **Day 3** | **SSH Brute-Force Detection & Correlation** | Ubuntu Server | Hydra brute-force simulation, event correlation (`Rule 5763`), MITRE T1110.001 | [Read Module ➔](./Day%203%20Brute-Force%20Detection/) |
 | 🔍 **Day 4** | **Invalid / Non-Existent User Detection** | Ubuntu Server | Account enumeration detection, PAM failure correlation (`Rule 5710`), MITRE T1087.001 | [Read Module ➔](./Day%204%20Invalid%20%20Non-Existent%20User%20Detection/) |
 | 🔐 **Day 5** | **Privilege Escalation Monitoring** | Ubuntu Server | Sudo activity detection, privileged command monitoring (`Rule 5402`), PAM session monitoring | [Read Module ➔](./Day%205%20Privilege%20Escalation%20Monitoring/) |
+| 👤 **Day 6** | **User Account Creation & Deletion Monitoring** | Ubuntu Server | User/group creation and deletion detection, Wazuh Rules `5901`, `5902`, `5903`, PAM password monitoring | [Read Module ➔](./Day%206%20User%20Account%20Creation%20and%20Deletion%20Monitoring/) |
 
 ---
 
@@ -89,6 +90,19 @@ This repository acts as a comprehensive lab portfolio showcasing real-world SOC 
   * `Rule ID 5502` (Level 3) – PAM login session closed
 
 * **Outcome:** Monitored privileged command execution, correlated Linux authentication logs with Wazuh alerts, identified the source and target privilege context, and practiced SOC investigation of authorized versus potentially suspicious privileged activity.
+
+### 👤 Day 6: User Account Creation & Deletion Monitoring
+
+* **\*\*Overview:\*\*** Create and delete a controlled Linux user account and investigate account lifecycle activity using Ubuntu logs, Auditd, PAM, and Wazuh.
+
+* **\*\*Key Detections:\*\***
+
+  * `Rule ID 5902` (Level 8) – New user added to the system
+  * `Rule ID 5901` (Level 8) – New group added to the system
+  * `Rule ID 5555` (Level 3) – PAM: User changed password
+  * `Rule ID 5903` (Level 3) – Group (or user) deleted from the system
+
+* **\*\*Outcome:\*\*** Monitored the complete Linux account lifecycle, correlated user and group creation/deletion events with system logs, and investigated the activity through Wazuh.
 
 ---
 
