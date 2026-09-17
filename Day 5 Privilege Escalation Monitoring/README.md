@@ -70,8 +70,9 @@ The exercise focuses on understanding how a SOC analyst can identify privileged 
 |          v            |
 |   Wazuh Dashboard     |
 +-----------------------+
-
+```
 ---
+
 
 # ⚙️ Controlled Privileged Activity
 
