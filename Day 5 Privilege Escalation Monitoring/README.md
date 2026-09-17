@@ -1,4 +1,3 @@
-````markdown
 # 🔐 Day 5: Privilege Escalation Monitoring with Wazuh
 
 ## 📋 Overview
@@ -71,7 +70,6 @@ The exercise focuses on understanding how a SOC analyst can identify privileged 
 |          v            |
 |   Wazuh Dashboard     |
 +-----------------------+
-````
 
 ---
 
