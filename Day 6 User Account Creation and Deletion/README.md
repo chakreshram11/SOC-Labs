@@ -1,16 +1,16 @@
-**# 👤 User Account Creation & Deletion Monitoring with Wazuh**
+# 👤 User Account Creation & Deletion Monitoring with Wazuh
 
-**## 📌 Overview**
+## 📌 Overview
 
-This lab demonstrates how ********Linux user account creation and deletion activities****** can be monitored and investigated using ********Wazuh******.
+This lab demonstrates how **Linux user account creation and deletion activities** can be monitored and investigated using **Wazuh****.
 
 A controlled test account named `testuser` was created on the Ubuntu Server and later deleted. The activity was investigated using Linux authentication logs, Auditd, and Wazuh alerts.
 
-The purpose of this exercise is to understand how a SOC analyst can monitor ********account lifecycle events****** and determine who performed the action and what happened around the event.
+The purpose of this exercise is to understand how a SOC analyst can monitor **account lifecycle events** and determine who performed the action and what happened around the event.
 
 ---
 
-****## 🎯 Objectives****
+## 🎯 Objectives
 
 * Create a controlled Linux user account.
 
@@ -34,71 +34,48 @@ The purpose of this exercise is to understand how a SOC analyst can monitor ****
 
 ---
 
-****## 🧪 Lab Environment****
+## 🧪 Lab Environment
 
-| Component     | Details            |
-
-| ------------- | ------------------ |
-
-| SIEM          | Wazuh              |
-
-| Agent         | Ubuntu-Server      |
-
-| Agent ID      | `002`              |
-
-| Ubuntu IP     | `10.10.10.40`      |
-
-| Wazuh Manager | `10.10.10.10`      |
-
-| Test Account  | `testuser`         |
-
-| Monitoring    | PAM, Auditd, Wazuh |
+| Component | Details |
+|---|---|
+| **SIEM** | Wazuh |
+| **Agent** | Ubuntu-Server |
+| **Agent ID** | `002` |
+| **Ubuntu IP** | `10.10.10.40` |
+| **Wazuh Manager** | `10.10.10.10` |
+| **Test Account** | `testuser` |
+| **Monitoring** | PAM, Auditd, Wazuh |
 
 ---
 
-****## 🏗️ Lab Architecture****
+## 🏗️ Lab Architecture
 
 ```text
 
                     ┌──────────────────────┐
-
                     │    Wazuh Manager     │
-
                     │      10.10.10.10     │
-
                     └──────────┬───────────┘
-
                                │
-
                          Wazuh Agent
-
                                │
-
                     ┌──────────▼───────────┐
-
                     │    Ubuntu Server     │
-
                     │      10.10.10.40     │
-
                     │                      │
-
                     │  • useradd           │
-
                     │  • userdel           │
-
                     │  • PAM               │
-
                     │  • Auditd            │
-
                     └──────────────────────┘
 
 ```
 
 ---
 
-****# 👤 Account Creation****
+# 👤 Account Creation
 
-****## 1. Create the Test User****
+## 1. Create the Test User
 
 A controlled test account was created using:
 
@@ -118,7 +95,7 @@ sudo passwd testuser
 
 ---
 
-****## 2. Verify the Account****
+## 2. Verify the Account
 
 The account was verified using:
 
@@ -154,7 +131,7 @@ testuser:x:1001:1001::/home/testuser:/bin/sh
 
 ---
 
-****# 📜 Authentication Log Analysis****
+# 📜 Authentication Log Analysis
 
 The account creation activity was visible in the Ubuntu authentication logs.
 
@@ -192,7 +169,7 @@ passwd: password changed for testuser
 
 ---
 
-****# 🔎 Auditd Investigation****
+# 🔎 Auditd Investigation
 
 Auditd was used to investigate the account creation event.
 
@@ -231,50 +208,36 @@ This provides useful investigation information including:
 * User/session context
 
 ---
-
-****# 🚨 Wazuh Account Creation Detection****
+# 🚨 Wazuh Account Creation Detection
 
 Wazuh detected the account creation activity.
 
-****### New User****
+### 👤 New User
 
-| Field       | Value                           |
+| Field | Value |
+|---|---|
+| **Rule ID** | `5902` |
+| **Level** | `8` |
+| **Description** | `New user added to the system.` |
 
-| ----------- | ------------------------------- |
+### 👥 New Group
 
-| Rule ID     | `5902`                          |
+| Field | Value |
+|---|---|
+| **Rule ID** | `5901` |
+| **Level** | `8` |
+| **Description** | `New group added to the system.` |
 
-| Level       | `8`                             |
+### 🔑 Password Change
 
-| Description | `New user added to the system.` |
-
-****### New Group****
-
-| Field       | Value                            |
-
-| ----------- | -------------------------------- |
-
-| Rule ID     | `5901`                           |
-
-| Level       | `8`                              |
-
-| Description | `New group added to the system.` |
-
-****### Password Change****
-
-| Field       | Value                         |
-
-| ----------- | ----------------------------- |
-
-| Rule ID     | `5555`                        |
-
-| Level       | `3`                           |
-
-| Description | `PAM: User changed password.` |
-
+| Field | Value |
+|---|---|
+| **Rule ID** | `5555` |
+| **Level** | `3` |
+| **Description** | `PAM: User changed password.` |
 ---
 
-****# 🗑️ Account Deletion****
+# 🗑️ Account Deletion
 
 After completing the account creation investigation, the controlled test account was deleted.
 
@@ -290,7 +253,7 @@ The `-r` option removes the user's home directory and associated mail spool alon
 
 ---
 
-****## 1. Verify Account Deletion****
+## 1. Verify Account Deletion
 
 The account was verified using:
 
@@ -320,7 +283,7 @@ No output confirms that the account no longer exists in the local account databa
 
 ---
 
-****# 📜 Account Deletion Log****
+# 📜 Account Deletion Log
 
 The deletion activity generated a `userdel` event.
 
@@ -336,33 +299,26 @@ The event was processed by the Wazuh `open-userdel` decoder.
 
 ---
 
-****# 🚨 Wazuh Account Deletion Detection****
+# 🚨 Wazuh Account Deletion Detection
 
-Wazuh detected the deletion activity.
+Wazuh detected the account deletion activity.
 
-| Field       | Value                                      |
+| Field | Value |
+|---|---|
+| **Agent** | `Ubuntu-Server` |
+| **Agent ID** | `002` |
+| **Agent IP** | `10.10.10.40` |
+| **User** | `testuser` |
+| **Decoder** | `open-userdel` |
+| **Rule ID** | `5903` |
+| **Level** | `3` |
+| **Description** | `Group (or user) deleted from the system.` |
+| **Process** | `userdel` |
 
-| ----------- | ------------------------------------------ |
-
-| Agent       | `Ubuntu-Server`                            |
-
-| Agent ID    | `002`                                      |
-
-| Agent IP    | `10.10.10.40`                              |
-
-| User        | `testuser`                                 |
-
-| Decoder     | `open-userdel`                             |
-
-| Rule ID     | `5903`                                     |
-
-| Level       | `3`                                        |
-
-| Description | `Group (or user) deleted from the system.` |
-
-| Process     | `userdel`                                  |
+### 📜 Wazuh Event
 
 The Wazuh event contained:
+
 
 ```text
 
@@ -374,17 +330,17 @@ This confirms that Wazuh successfully received and analyzed the account deletion
 
 ---
 
-****# 🔍 SOC Investigation****
+# 🔍 SOC Investigation
 
 Account creation and deletion events should be investigated in context.
 
 A SOC analyst should determine:
 
-****### 1. Who performed the action?****
+### 1. Who performed the action?
 
 Identify the source user responsible for creating or deleting the account.
 
-****### 2. Which account was affected?****
+### 2. Which account was affected?
 
 In this lab:
 
@@ -394,7 +350,7 @@ testuser
 
 ```
 
-****### 3. What process performed the action?****
+### 3. What process performed the action?
 
 For deletion:
 
@@ -412,7 +368,7 @@ useradd
 
 ```
 
-****### 4. Why was the account created or deleted?****
+### 4. Why was the account created or deleted?
 
 The analyst should determine whether the activity was:
 
@@ -424,7 +380,7 @@ The analyst should determine whether the activity was:
 
 * Suspicious account manipulation
 
-****### 5. What happened before and after the event?****
+### 5. What happened before and after the event?
 
 Check for:
 
@@ -444,109 +400,83 @@ Check for:
 
 ---
 
-****# 🔄 SOC Investigation Workflow****
+# 🔄 SOC Investigation Workflow
 
 ```text
 
         User Account Activity
-
                  │
-
                  ▼
-
-       Linux System Logs
-
+          Linux System Logs
                  │
-
                  ▼
-
               Auditd
-
                  │
-
                  ▼
-
-        Wazuh Agent
-
+            Wazuh Agent
                  │
-
                  ▼
-
-        Wazuh Detection
-
+          Wazuh Detection
                  │
-
                  ▼
-
-       Rule & Event Analysis
-
+        Rule & Event Analysis
                  │
-
                  ▼
-
-       User / Process Context
-
+        User / Process Context
                  │
-
                  ▼
-
-       SOC Investigation
+         SOC Investigation
 
 ```
 
 ---
 
-****# 🛡️ Recommended SOC Response****
+# 🛡️ Recommended SOC Response
 
 If an unexpected account creation or deletion is detected:
 
-1\\. Identify the administrator or process responsible.
+1\. Identify the administrator or process responsible.
 
-2\\. Verify whether the activity was authorized.
+2\. Verify whether the activity was authorized.
 
-3\\. Review the affected account.
+3\. Review the affected account.
 
-4\\. Check account privileges and group membership.
+4\. Check account privileges and group membership.
 
-5\\. Review authentication and sudo activity.
+5\. Review authentication and sudo activity.
 
-6\\. Investigate activity before and after the event.
+6\. Investigate activity before and after the event.
 
-7\\. Check for other newly created accounts.
+7\. Check for other newly created accounts.
 
-8\\. Preserve relevant logs and evidence.
+8\. Preserve relevant logs and evidence.
 
-9\\. Escalate the incident if unauthorized activity is confirmed.
+9\. Escalate the incident if unauthorized activity is confirmed.
 
 ---
 
-****# 🎯 MITRE ATT&CK Mapping****
+# 🎯 MITRE ATT&CK Mapping
 
-****### T1136.001 — Create Account: Local Account****
+### T1136.001 — Create Account: Local Account
 
 Account creation can be relevant to adversaries attempting to establish or maintain access to a system.
 
-For this lab, the account creation was ********authorized and controlled******, so the MITRE mapping represents the security technique being monitored rather than claiming that the lab activity was malicious.
+For this lab, the account creation was **authorized and controlled**, so the MITRE mapping represents the security technique being monitored rather than claiming that the lab activity was malicious.
 
 ---
 
-****# 📊 Detection Summary****
+# 📊 Detection Summary
 
-| Activity            | Wazuh Rule | Level | Detection                               |
-
-| ------------------- | ---------: | ----: | --------------------------------------- |
-
-| User creation       |     `5902` |     8 | New user added to the system            |
-
-| Group creation      |     `5901` |     8 | New group added to the system           |
-
-| Password change     |     `5555` |     3 | PAM: User changed password              |
-
-| User/group deletion |     `5903` |     3 | Group (or user) deleted from the system |
+| Activity | Wazuh Rule | Level | Detection|
+|---|---|---|---|
+| **User creation** | `5902` | 8 | New user added to the system |
+| **Group creation**      |     `5901` |     8 | New group added to the system           |
+| **Password change**     |     `5555` |     3 | PAM: User changed password              |
+| **User/group deletion** |     `5903` |     3 | Group (or user) deleted from the system |
 
 ---
 
-****# 💡 Key Learning****
+# 💡 Key Learning
 
 This exercise demonstrated how a SOC analyst can monitor the complete lifecycle of a Linux user account:
 
@@ -588,22 +518,16 @@ The important takeaway is that ********account creation or deletion is not autom
 
 ---
 
-****# 🧰 Tools Used****
+# 🧰 Tools Used
 
 * Wazuh
-
 * Ubuntu Server
-
 * Linux PAM
-
 * Auditd
 
 * `useradd`
-
 * `userdel`
-
 * `passwd`
-
 * `ausearch`
 
 * Linux authentication logs
@@ -612,9 +536,9 @@ The important takeaway is that ********account creation or deletion is not autom
 
 ---
 
-**# 📸 Evidence & Screenshots
+# 📸 Evidence & Screenshots
 
-**## 1. New User and New Group Added**
+## 1. New User and New Group Added
 
 ![New User and New Group Added](new%20user%20and%20new%20group%20added.png)
 
@@ -622,13 +546,13 @@ This screenshot shows the Wazuh events generated when the `testuser` account and
 
 ---
 
-**## 2. New User Creation Details**
+## 2. New User Creation Details
 
 ![New User Created Detail](new%20user%20created%20detail.png)
 
 This screenshot shows the detailed Wazuh event for the newly created user.
 
-****Detection:****
+**Detection:**
 
 \- Rule ID: `5902`
 
@@ -638,13 +562,13 @@ This screenshot shows the detailed Wazuh event for the newly created user.
 
 ---
 
-**## 3. New Group Added**
+## 3. New Group Added
 
 ![New Group Added Log](new%20group%20added%20log.png)
 
 This screenshot shows the Wazuh detection for the group created along with the user account.
 
-****Detection:****
+**Detection:**
 
 \- Rule ID: `5901`
 
@@ -654,13 +578,13 @@ This screenshot shows the Wazuh detection for the group created along with the u
 
 ---
 
-**## 4. User and Group Deleted**
+## 4. User and Group Deleted
 
 ![User and Group Deleted Log](user%20and%20group%20deleted%20log.png)
 
 This screenshot shows the Wazuh event generated after deleting the test account and its associated group.
 
-****Detection:****
+**Detection:**
 
 \- Rule ID: `5903`
 
@@ -670,13 +594,13 @@ This screenshot shows the Wazuh event generated after deleting the test account 
 
 ---
 
-**## 5. Deleted User Log Details**
+## 5. Deleted User Log Details
 
 ![Deleted User Log](deleted%20user%20log.png)
 
 This screenshot shows the detailed Wazuh event generated by the `userdel` process.
 
-****Event details:****
+**Event details:**
 
 \- User: `testuser`
 
@@ -688,30 +612,23 @@ This screenshot shows the detailed Wazuh event generated by the `userdel` proces
 
 ---
 
-**# 📁 Repository Structure**
+# 📁 Repository Structure
 
 ```text
 
 Day 6 User Account Creation and Deletion Monitoring/
-
 │
-
 ├── README.md
-
 ├── deleted user log.png
-
 ├── new user and new group added.png
-
 ├── new user created detail.png
-
 ├── new group added log.png
-
 └── user and group deleted log.png
 
 ```
 
-**# ⚠️ Disclaimer****
+# ⚠️ Disclaimer
 
-This activity was performed in an ********isolated, controlled SOC lab environment****** for cybersecurity monitoring and defensive learning purposes.
+This activity was performed in an **isolated, controlled SOC lab environment** for  cybersecurity monitoring and defensive learning purposes.
 
 The account creation and deletion activities were authorized test actions and were not performed against unauthorized systems.
