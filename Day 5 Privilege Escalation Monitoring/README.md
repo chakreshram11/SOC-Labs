@@ -162,29 +162,45 @@ This confirmed that the Linux endpoint was successfully recording privileged com
 
 ---
 
-# 📸 Endpoint Evidence
+# 📸 Evidence & Screenshots
 
-## 1. User and Privilege Verification
+## 1. Ubuntu Server Commands
 
-![User and Privilege Verification](01-user-privilege-verification.png)
+![Ubuntu Server Commands](ubuntu%20server%20commands.png)
 
-**Figure 1:** Verification of the current user and privilege context before performing the controlled administrative activity.
-
----
-
-## 2. Controlled Sudo Activity
-
-![Sudo Activity](02-sudo-activity.png)
-
-**Figure 2:** Controlled `sudo` commands executed to generate privileged activity for monitoring.
+**Figure 1:** Ubuntu Server commands used to verify the current user and perform controlled privileged operations.
 
 ---
 
-## 3. Linux Authentication Logs
+## 2. Sudo Who Am I
 
-![Authentication Logs](03-authentication-log.png)
+![Sudo Who Am I](sudo%20who%20am%20i.png)
 
-**Figure 3:** Linux authentication logs showing recorded `sudo` activity.
+**Figure 2:** Verification of root-level execution using `sudo whoami`.
+
+---
+
+## 3. Sudo ID
+
+![Sudo ID](sudo%20id.png)
+
+**Figure 3:** Verification of the privileged UID, GID, and group context using `sudo id`.
+
+---
+
+## 4. Creating a Test File
+
+![Creating a File Log](creating%20a%20file%20log.png)
+
+**Figure 4:** Controlled creation of a temporary file using elevated privileges.
+
+---
+
+## 5. Wazuh Logs
+
+![Wazuh Logs](wazuh%20logs.png)
+
+**Figure 5:** Wazuh events showing detection of the privileged `sudo` activity.
 
 ---
 
